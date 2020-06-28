@@ -11,17 +11,18 @@ vector<bool> isPrime(NUM_PRIMES,true);
 vector<int> primes;
 void seive(int n);
 
+bool comp(int a,int b) {
+    return a>b;
+}
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
 
-    llt t;
-    cin>>t;
-    while(t--) {
-        
-    }
+    vector<int> v;
+    v.empty()
     
-    return 0;
+
 }
 
 void seive(int n) {
@@ -40,3 +41,4 @@ void seive(int n) {
             primes.push_back(i);
     }
 }
+
