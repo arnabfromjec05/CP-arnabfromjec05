@@ -51,32 +51,10 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
 
-    llt t,n,m;
-    cin>>t;
-    while(t--) {
-        cin>>n>>m;
-        g.clear();
-        g.resize(n+1);
-        vis.clear();
-        vis.resize(n+1,false);
-
-        ipgraph(m);
-
-        int s;
-        cout<<"Enter starting node : ";
-        cin>>s;
-
-        //code goes here
-
-
-
-
-
-        // dfs(1);
-        // cout<<endl;
-        // bfs(s);
-        // cout<<endl;
-    }
+    map<int,pair<int,int> > hm;
+    hm[3]=make_pair(1,1);
+    cout<<hm[3].first<<" "<<hm[3].second;
+    cout<<hm[1].first<<" "<<hm[1].second;
 
 }
 
