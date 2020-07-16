@@ -1,3 +1,4 @@
+//Given two numbers, hour and minutes. Return the smaller angle (in degrees) formed between the hour and the minute hand.
 
 #include<bits/stdc++.h>
 typedef long long int llt;
