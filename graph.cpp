@@ -15,7 +15,7 @@ void ipgraph(int m) {
     for(int i=0;i<m;i++) {
         cin>>x>>y;
         g[x].push_back(y);
-        g[y].push_back(x);
+        // g[y].push_back(x);
     }
 }
 
@@ -47,6 +47,44 @@ void bfs(int s) {
     }
 }
 
+//topological sort for directed graph 
+//return: empty vector if no suitable task ordering can be done, else the vector with correct ordering
+
+vector<int> topsort(int n) {
+        int indeg[n];
+        memset(indeg,0,sizeof(indeg));
+        queue<int> q;   //stores elements whose indeg = 0
+        for(int i=0;i<n;i++) {
+            for(int j=0;j<g[i].size();j++) {
+                indeg[g[i][j]]++;
+            }
+        }
+        for(int i=0;i<n;i++) {
+            if(indeg[i]==0)
+                q.push(i);
+        }
+        
+        vector<int> res;
+        while(!q.empty()) {
+            int front = q.front();
+            res.push_back(front);
+            q.pop();
+            for(int i=0;i<g[front].size();i++) {
+                indeg[g[front][i]]-=1;
+                if(indeg[g[front][i]]==0) {
+                    q.push(g[front][i]);
+                }
+            }
+        }
+        for(int i=0;i<n;i++) {
+            if(indeg[i]) {
+                res.clear();
+                break;
+            }
+        }
+        return res;
+}
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
@@ -67,9 +105,6 @@ int main() {
         cin>>s;
 
         //code goes here
-
-
-
 
         
         // dfs(1);
