@@ -1,3 +1,6 @@
+#include<bits/stdc++.h>
+using namespace std;
+
 class Solution {
 public:
     int n,m;
@@ -10,7 +13,7 @@ public:
         return true;
     }
     
-    void dfs(int i,int j,vector<vector<char>>& board) {
+    void dfs(int i,int j,vector<vector<char> >& board) {
         
         vis[i][j]=1;
         avoid[i][j]=1;
@@ -30,7 +33,7 @@ public:
         
     }
     
-    void solve(vector<vector<char>>& board) {
+    void solve(vector<vector<char> >& board) {
         if(board.empty())
             return;
         n=board.size();

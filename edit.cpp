@@ -1,77 +1,52 @@
 #include<bits/stdc++.h>
-#define deb2(x,y) cout<<#x<<":"<<x<<" "<<#y<<":"<<y<<endl;
-#define deb(x) cout<<#x<<":"<<x<<endl;
+#define DEB2(x,y) cout<<"#x: "<<x<<" "<<" #y: "<<y<<endl;
+#define DEB(x) cout<<"#x: "<<x<<endl;
+#define DEBFL(x,n) for(int i=0;i<x.size();i++) cout<<x[i]<<" "; cout<<endl;
 #define fo(i,n) for(int i=0;i<n;i++) 
 #define MOD (int)(1e9+7)
 typedef long long int llt;
 
 using namespace std;
 
-bool chkComp(char ch, string s[]) {
-    int r[3]={0};
-    int c[3]={0};
-    int d[2]={0};
-    for(int i=0;i<3;i++) {
-        for(int j=0;j<3;j++) {
-            if(s[i][j]==ch) {
-                r[i]++;
-                c[j]++;
-                if(i==j) d[0]++;
-                if(i+j==2) d[1]++;
-                if(r[i]==3 || c[j]==3 || d[0]==3 || d[1]==3)
-                    return true;
-            }
-        }
-    }
-    return false;
-    
-} 
+bool comp(llt a,llt b) {
+    return a>b;
+}
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
+    int t,n;
     cin>>t;
-    while(t--) {
-        string s[3];
-        cin>>s[0]>>s[1]>>s[2];
-        int countX=0,countO=0,res=2;
-        bool xComp=false,oComp=false;
-        for(int i=0;i<3;i++) {
-            for(int j=0;j<3;j++) {
-                if(s[i][j]=='X')
-                    countX++;
-                else if(s[i][j]=='O')
-                    countO++;
-            }
-        }
-        xComp=chkComp('X',s);
-        oComp=chkComp('O',s);
 
-        if(!(countX==countO || countX==countO+1)) {
-            res=3;
-            //cout<<":1"<<endl;
+    int N=(int)(1e7);
+    vector<bool> isPrime(N+1,true);
+    vector<int> primes;
+    for(int i=2;i*i<=N;i++) {
+        if(!isPrime[i]) 
+            continue;
+        int j=i;
+        while(i*j<=N) {
+            isPrime[i*j]=false;
+            j++;
+        }
+    }
+    for(int i=2;i<=N;i++) {
+        if(isPrime[i])
+            primes.push_back(i);
+    }
+
+    while(t--) {
+        cin>>n;
+        if(n==2 || n==3) {
+            cout<<n-1<<endl;
         }
         else {
-            if(xComp==true && oComp==true) {
-                res=3;
-                //cout<<":2"<<endl;
-            }
-            else if(xComp==true || oComp==true) {
-                res=1;
-                //cout<<":3"<<endl;
-            }
-            else {
-                if(countX+countO==9) {
-                    res=1; //draw
-                }
-                else {
-                    res=2;
-                }
-            }
+            int g=upper_bound(primes.begin(),primes.end(),n)-primes.begin();
+            g=g-(upper_bound(primes.begin(),primes.end(),n/primes[0])-primes.begin())+1;      
+            cout<<g<<endl;
         }
-        cout<<res<<endl;
+        
     }
     return 0;
 }
