@@ -80,6 +80,7 @@ vector<int> topsort(int n) {
         }
         for(int i=0;i<n;i++) {
             if(indeg[i]) {
+                // Graph contains cycle
                 res.clear();
                 break;
             }
