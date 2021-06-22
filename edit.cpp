@@ -16,37 +16,11 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t,n;
+    int t,x1,x2,y1,y2,z1,z2;
     cin>>t;
-
-    int N=(int)(1e7);
-    vector<bool> isPrime(N+1,true);
-    vector<int> primes;
-    for(int i=2;i*i<=N;i++) {
-        if(!isPrime[i]) 
-            continue;
-        int j=i;
-        while(i*j<=N) {
-            isPrime[i*j]=false;
-            j++;
-        }
-    }
-    for(int i=2;i<=N;i++) {
-        if(isPrime[i])
-            primes.push_back(i);
-    }
-
     while(t--) {
-        cin>>n;
-        if(n==2 || n==3) {
-            cout<<n-1<<endl;
-        }
-        else {
-            int g=upper_bound(primes.begin(),primes.end(),n)-primes.begin();
-            g=g-(upper_bound(primes.begin(),primes.end(),n/primes[0])-primes.begin())+1;      
-            cout<<g<<endl;
-        }
-        
+        cin>>x1>>x2>>y1>>y2>>z1>>z2;
+        cout<<
     }
     return 0;
 }

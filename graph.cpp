@@ -19,6 +19,7 @@ void ipgraph(int m) {
     }
 }
 
+// O(V+E)
 void dfs(int s) {
     vis[s]=true;
     cout<<s<<"->";
@@ -29,6 +30,7 @@ void dfs(int s) {
     }
 }
 
+// O(V+E)
 void bfs(int s) {
     queue<int> q;
     q.push(s);
@@ -49,7 +51,7 @@ void bfs(int s) {
 
 //topological sort for directed graph 
 //return: empty vector if no suitable task ordering can be done, else the vector with correct ordering
-
+// O(V+E)
 vector<int> topsort(int n) {
         int indeg[n];
         memset(indeg,0,sizeof(indeg));
