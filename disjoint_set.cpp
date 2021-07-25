@@ -1,3 +1,5 @@
+#include<bits/stdc++.h>
+
 class DisjointSet {
     private:
         vector<int> parent;
@@ -27,7 +29,7 @@ class DisjointSet {
 class Solution {
 public:
     
-    vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+    vector<int> findRedundantConnection(vector<vector<int> >& edges) {
         
         int n=edges.size();
         DisjointSet* ds = new DisjointSet(n);
