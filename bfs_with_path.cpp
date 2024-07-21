@@ -34,35 +34,40 @@ const vector<vector<int> > dir {{-1,0}, {0,1}, {1,0}, {0,-1}};
 // 	}
 // }
 
-
-// void bfs(vector<vector<int> > &g, int numNodes, int startNode, int targetNode, vector<int> &par, bool &found) {
+/** 
+ * bfs on graph g having numNodes
+ * from startNode -> targetNode
+ * maintaining parent array for the path
+ * and found variable to detect if no path exist
+ */
+void bfs(vector<vector<int> > &g, int numNodes, int startNode, int targetNode, vector<int> &par, bool &found) {
 	
-// 	int n = numNodes;
-// 	vector<int> vis(n+1, false);
-//     queue<int> q;
+	int n = numNodes;
+	vector<int> vis(n+1, false);
+    queue<int> q;
 
-//     vis[startNode] = true;
-//     q.push(startNode);
-//     par[startNode] = -1;
+    vis[startNode] = true;
+    q.push(startNode);
+    par[startNode] = -1;
 
-//     while(!q.empty()) {
-//     	int node = q.front();
-//     	q.pop();
+    while(!q.empty()) {
+    	int node = q.front();
+    	q.pop();
 
-//     	if (node == targetNode) {
-//     		found = true;
-//     		break;
-//     	}
+    	if (node == targetNode) {
+    		found = true;
+    		break;
+    	}
 
-//     	for (int i=0; i<g[node].size(); i++) {
-//     		if (!vis[g[node][i]]) {
-//     			vis[g[node][i]] = true;
-//     			q.push(g[node][i]);
-//     			par[g[node][i]] = node;
-//     		}
-//     	}
-//     }
-// }
+    	for (int i=0; i<g[node].size(); i++) {
+    		if (!vis[g[node][i]]) {
+    			vis[g[node][i]] = true;
+    			q.push(g[node][i]);
+    			par[g[node][i]] = node;
+    		}
+    	}
+    }
+}
 
 
 int main() {

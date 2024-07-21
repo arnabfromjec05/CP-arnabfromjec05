@@ -1,3 +1,2 @@
-YES
-9
-LDDRRRRRU
+2
+1 4 
