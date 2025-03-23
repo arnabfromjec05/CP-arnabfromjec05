@@ -11,100 +11,129 @@ cons:
 
 */
 
-#include<bits/stdc++.h>
-#define NUM_ALPHABETS 26
-
+#include<iostream>
+#include<iomanip>
+#include<algorithm>
+#include<string>
+#include<vector>
+#include<stack>
+#include<queue>
+#include<unordered_set>
+#include<set>
+#include<unordered_map>
+#include<map>
+#include<math.h>
 using namespace std;
 
-class Node {
-    public:
-        bool endOfWord;
-        Node* children[NUM_ALPHABETS];
+#define fastio                        \
+    ios_base::sync_with_stdio(false); \
+    cin.tie(NULL);                    \
+    cout.tie(NULL)
+#define precision(a) std::cout << std::fixed << std::setprecision(a)
+#define max3(a, b, c) max(max(a, b), c)
+#define max4(a, b, c, d) max(max(a, b), max(c, d))
+#define fr(i, n) for (ll i = 0; i < n; i++)
 
-        Node() {
-            endOfWord=false;
-            for(int i=0;i<NUM_ALPHABETS;i++) {
-                children[i]=NULL;
-            }
+typedef long long ll;
+typedef long double lld;
+
+/**
+ * Tokenize a string on given del
+ */
+vector<string> tok(string s, char del) {
+    vector<string> res;
+    string temp = "";
+    for (int i=0; i<s.size(); i++) {
+        if (s[i] == del) {
+            res.push_back(temp);
+            temp = "";
+            continue;
         }
+        temp+=s[i];
+    }
+    res.push_back(temp);
+    return res;
+}
+
+/**
+ * Trie
+ *  - insert(word): void	Insert a word in trie
+ *  - search(word): bool	Search a word in trie
+ *  - startsWith(prefix): bool	Search and return true if any word with following prefix exists in trie
+ */
+
+class Node {
+public:
+	Node* ref[26];
+	bool isEnd;
+
+	Node() {
+		isEnd = false;
+		for(int i=0; i<26; i++) {
+			ref[i] = NULL;
+		}
+	}
 };
 
 class Trie {
-    Node* root;
+	Node* root;
+public:
+	Trie() {
+		root = new Node();
+	}
 
-    void dfs(Node* root, string& wordPref) {
-        if(root->endOfWord) {
-            cout<<wordPref<<endl;
-        }
-        for(int i=0;i<NUM_ALPHABETS;i++) {
-            if(root->children[i]) {
-                wordPref.push_back((char)('a'+i));
-                dfs(root->children[i],wordPref);
-            }
-        }
-        wordPref.pop_back();
-    }
+	void insert(string word) {
+		Node* temp = root;
+		for(auto ch: word) {
+			if(temp->ref[ch - 'a'] == NULL) {
+				Node* node = new Node();
+				temp->ref[ch - 'a'] = node;				
+			}
+			temp = temp->ref[ch - 'a'];
+		}
+		temp->isEnd = true;
+	}
 
-    public:
-        Trie() {
-            root=new Node();
-        }
+	bool search(string word) {
+		Node* temp = root;
+		for(auto ch: word) {
+			if(temp->ref[ch - 'a'] == NULL) {
+				return false;
+			}
+			temp = temp->ref[ch - 'a'];
+		}
+		return temp->isEnd;
+	}
 
-        void insert(string word) {
-            Node* temp = root;
-            for(int i=0;i<word.size();i++) {
-                if(temp->children[word[i]-'a']==NULL) {
-                    temp->children[word[i]-'a']=new Node();
-                }
-                temp=temp->children[word[i]-'a'];
-                if(i==word.size()-1) {
-                    temp->endOfWord=true;
-                }
-            }
-        }
-
-        bool search(string word) {
-            Node* temp = root;
-            for(int i=0;i<word.size();i++) {
-                if(temp->children[word[i]-'a']==NULL) {
-                    return false;
-                }
-                temp = temp->children[word[i]-'a'];
-            }
-            if(temp->endOfWord==true) {
-                return true;
-            }
-            return false;
-        }
-
-        void traverse() {
-            string wordPref = "-->";
-            dfs(root,wordPref);
-        }
-
+	bool startsWith(string prefix) {
+		Node* temp = root;
+		for(auto ch: prefix) {
+			if(temp->ref[ch - 'a'] == NULL) {
+				return false;
+			}
+			temp = temp->ref[ch - 'a'];
+		}
+		return true;
+	}
 };
 
 int main() {
-    Trie* trie = new Trie();
-    trie->insert("hello");
-    trie->insert("he");
-    trie->insert("world");
-    trie->insert("abc");
-    trie->insert("def");
-    trie->insert("hi");
-    
-    cout<<"Traversing the Trie"<<endl;
-    trie->traverse();
+	fastio;
+	Trie* trie = new Trie();
 
-    cout<<"Search in the Trie"<<endl;
-    int t;
-    cin>>t;
-    while(t--) {
-        string word;
-        cin>>word;
-        cout<<(trie->search(word)?"FOUND":"NOT FOUND")<<endl;
-    }
+	trie->insert("apple");
+	trie->insert("apps");
+	trie->insert("appsi");
+	trie->insert("bac");
+	trie->insert("box");
+
+
+	cout<<trie->search("apps")<<endl;
+	cout<<trie->search("appsi")<<endl;
+	cout<<trie->search("bac")<<endl;
+	cout<<trie->search("boxi")<<endl;
+	cout<<trie->startsWith("app")<<endl;
+	cout<<trie->startsWith("cap")<<endl;
+
     return 0;
 }
-
-
